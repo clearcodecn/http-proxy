@@ -22,10 +22,9 @@ func init() {
 
 func main() {
 	flag.Parse()
-	
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 	server := new(s)
-	http.ListenAndServe(localAddr, server)
+	log.Fatal(http.ListenAndServe(localAddr, server))
 }
 
 var tunnelEstablishedResponseLine = []byte("HTTP/1.1 200 Connection established\r\n\r\n")
