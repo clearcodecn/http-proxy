@@ -17,14 +17,15 @@ function stop() {
 
 case $1 in
 "start")
-    start()
+    start
     ;;
 "stop")
-    stop()
+    stop
     ;;
 "reload")
-    stop()
-    start()
+    stop
+    start
+    ;;
 esac
 
 exit 0
