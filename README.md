@@ -16,7 +16,7 @@ protocol:
 1. 安装服务端
 
 * 下载最新的release
-* go 命令
+* go 命令`
 
 ```
     go get -u github.com/clearcodecn/http-proxy/server

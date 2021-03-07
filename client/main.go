@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/binary"
+	"flag"
 	http_proxy "github.com/clearcodecn/http-proxy"
 	"io"
 	"log"
@@ -9,10 +10,22 @@ import (
 	"net/http"
 )
 
+var (
+	serverAddr string
+	localAddr  string
+)
+
+func init() {
+	flag.StringVar(&serverAddr, "s", "", "server address")
+	flag.StringVar(&localAddr, "l", ":9001", "local address")
+}
+
 func main() {
+	flag.Parse()
+	
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 	server := new(s)
-	http.ListenAndServe(":9001", server)
+	http.ListenAndServe(localAddr, server)
 }
 
 var tunnelEstablishedResponseLine = []byte("HTTP/1.1 200 Connection established\r\n\r\n")
@@ -26,7 +39,7 @@ func (s *s) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	defer httpConn.Close()
 
-	conn, err := net.Dial("tcp", `18.163.81.60:9000`)
+	conn, err := net.Dial("tcp", serverAddr)
 	if err != nil {
 		return
 	}
