@@ -3,7 +3,7 @@
 pidFile=/tmp/client.pid
 
 function start(){
-  nohup client > /tmp/proxy.log 2>&1 &
+  nohup client -s 192.168.1.199:9000 -l :9001 > /tmp/proxy.log 2>&1 &
   pid=$!
   echo $pid > $pidFile
 }
